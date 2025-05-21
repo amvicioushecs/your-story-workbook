@@ -83,14 +83,15 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
   };
 
   // Determine if we should show the chapter-specific heading
-  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2;
+  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
   // Determine if we should show the commitment section
-  const showCommitmentSection = chapter.id === 1 || chapter.id === 2;
+  const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
     if (chapter.id === 1) return "Commit to the Choice";
     if (chapter.id === 2) return "Commit to the Choice";
+    if (chapter.id === 3) return "Commit to the Choice";
     return "Commitment";
   };
 
@@ -175,6 +176,11 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
           {chapter.id === 2 && (
             <p className="text-crafted-brown italic mb-4">
               I honor my wake-up by refusing to go back to sleep.
+            </p>
+          )}
+          {chapter.id === 3 && (
+            <p className="text-crafted-brown italic mb-4">
+              I will stop reacting. I will start crafting.
             </p>
           )}
         </div>
