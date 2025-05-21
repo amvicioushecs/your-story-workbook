@@ -5,6 +5,7 @@ import { useWorkbookData } from '../hooks/useWorkbookData';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
+import { Checkbox } from './ui/checkbox';
 
 interface WorkbookPageProps {
   chapter: Chapter;
@@ -15,6 +16,48 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
 
   const handleInputChange = (questionId: string, value: string) => {
     saveEntry(questionId, value);
+  };
+
+  const handleCheckboxChange = (questionId: string, option: string, checked: boolean) => {
+    // Get current selected options
+    const currentValueStr = getEntry(questionId) || '[]';
+    let currentOptions: string[] = [];
+    
+    try {
+      currentOptions = JSON.parse(currentValueStr);
+      // Ensure it's an array
+      if (!Array.isArray(currentOptions)) {
+        currentOptions = [];
+      }
+    } catch (e) {
+      // If not valid JSON, start with empty array
+      currentOptions = [];
+    }
+    
+    // Update options
+    if (checked) {
+      // Add option if not already included
+      if (!currentOptions.includes(option)) {
+        currentOptions.push(option);
+      }
+    } else {
+      // Remove option
+      currentOptions = currentOptions.filter(item => item !== option);
+    }
+    
+    // Save as JSON string
+    saveEntry(questionId, JSON.stringify(currentOptions));
+  };
+
+  // Function to check if an option is selected in a checkbox group
+  const isOptionSelected = (questionId: string, option: string): boolean => {
+    const currentValueStr = getEntry(questionId) || '[]';
+    try {
+      const currentOptions = JSON.parse(currentValueStr);
+      return Array.isArray(currentOptions) && currentOptions.includes(option);
+    } catch (e) {
+      return false;
+    }
   };
 
   const renderSignatureField = (questionId: string) => (
@@ -43,15 +86,37 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
     </div>
   );
 
+  const renderCheckboxOptions = (questionId: string, options: string[] = []) => (
+    <div className="mt-4 space-y-3">
+      {options.map((option) => (
+        <div key={`${questionId}-${option}`} className="flex items-center space-x-2">
+          <Checkbox 
+            id={`${questionId}-${option}`}
+            checked={isOptionSelected(questionId, option)}
+            onCheckedChange={(checked) => handleCheckboxChange(questionId, option, checked === true)}
+            className="border-2 border-crafted-brown h-5 w-5 rounded-sm"
+          />
+          <Label 
+            htmlFor={`${questionId}-${option}`}
+            className="font-medium text-crafted-brown cursor-pointer"
+          >
+            {option}
+          </Label>
+        </div>
+      ))}
+    </div>
+  );
+
   // Determine if we should show the chapter-specific heading
-  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2;
+  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
   // Determine if we should show the commitment section
-  const showCommitmentSection = chapter.id === 1 || chapter.id === 2;
+  const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
     if (chapter.id === 1) return "Commit to the Choice";
     if (chapter.id === 2) return "Commit to the Choice";
+    if (chapter.id === 3) return "Commit to the Choice";
     return "Commitment";
   };
 
@@ -99,6 +164,8 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
               renderSignatureField(question.id)
             ) : question.type === "commit" ? (
               renderCommitField(question.id, question.placeholder)
+            ) : question.type === "circle-cross" && question.options ? (
+              renderCheckboxOptions(question.id, question.options)
             ) : question.multiline ? (
               <Textarea
                 id={question.id}
@@ -134,6 +201,11 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
           {chapter.id === 2 && (
             <p className="text-crafted-brown italic mb-4">
               I honor my wake-up by refusing to go back to sleep.
+            </p>
+          )}
+          {chapter.id === 3 && (
+            <p className="text-crafted-brown italic mb-4">
+              I will stop reacting. I will start crafting.
             </p>
           )}
         </div>
