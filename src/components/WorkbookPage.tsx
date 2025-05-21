@@ -108,16 +108,34 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
   );
 
   // Determine if we should show the chapter-specific heading
-  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
+  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3 || chapter.id === 4;
   // Determine if we should show the commitment section
-  const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
+  const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3 || chapter.id === 4;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
     if (chapter.id === 1) return "Commit to the Choice";
     if (chapter.id === 2) return "Commit to the Choice";
     if (chapter.id === 3) return "Commit to the Choice";
+    if (chapter.id === 4) return "Commit to the Choice";
     return "Commitment";
+  };
+
+  // Get the chapter-specific commitment message
+  const getCommitmentMessage = () => {
+    if (chapter.id === 1) {
+      return "Sign below to acknowledge your commitment to crafting your life by choice.";
+    }
+    if (chapter.id === 2) {
+      return "I honor my wake-up by refusing to go back to sleep.";
+    }
+    if (chapter.id === 3) {
+      return "I will stop reacting. I will start crafting.";
+    }
+    if (chapter.id === 4) {
+      return "I am the author now.";
+    }
+    return "";
   };
 
   return (
@@ -193,21 +211,9 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
           <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-4">
             {getCommitmentTitle()}
           </h3>
-          {chapter.id === 1 && (
-            <p className="text-crafted-brown italic mb-4">
-              Sign below to acknowledge your commitment to crafting your life by choice.
-            </p>
-          )}
-          {chapter.id === 2 && (
-            <p className="text-crafted-brown italic mb-4">
-              I honor my wake-up by refusing to go back to sleep.
-            </p>
-          )}
-          {chapter.id === 3 && (
-            <p className="text-crafted-brown italic mb-4">
-              I will stop reacting. I will start crafting.
-            </p>
-          )}
+          <p className="text-crafted-brown italic mb-4">
+            {getCommitmentMessage()}
+          </p>
         </div>
       )}
     </div>
