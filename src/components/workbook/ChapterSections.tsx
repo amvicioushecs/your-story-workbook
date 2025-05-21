@@ -10,7 +10,7 @@ export const ChapterHeader: React.FC<ChapterSectionProps> = ({ chapter }) => {
   // Determine if we should show the chapter-specific heading
   const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3 || 
                                    chapter.id === 4 || chapter.id === 5 || chapter.id === 6 || 
-                                   chapter.id === 7;
+                                   chapter.id === 7 || chapter.id === 8;
   
   return (
     <div className="mb-8">
@@ -47,7 +47,7 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
   // Determine if we should show the commitment section
   const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3 || 
                                 chapter.id === 4 || chapter.id === 5 || chapter.id === 6 ||
-                                chapter.id === 7;
+                                chapter.id === 7 || chapter.id === 8;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
@@ -58,6 +58,7 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
     if (chapter.id === 5) return "Commit to the Choice";
     if (chapter.id === 6) return "Commit to the Choice";
     if (chapter.id === 7) return "Commit to the Choice";
+    if (chapter.id === 8) return "Commit to the Choice";
     return "Commitment";
   };
 
@@ -83,6 +84,9 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
     }
     if (chapter.id === 7) {
       return "Clarity is my compass.";
+    }
+    if (chapter.id === 8) {
+      return "I am the system now.";
     }
     return "";
   };
