@@ -10,7 +10,8 @@ export const ChapterHeader: React.FC<ChapterSectionProps> = ({ chapter }) => {
   // Determine if we should show the chapter-specific heading
   const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3 || 
                                    chapter.id === 4 || chapter.id === 5 || chapter.id === 6 || 
-                                   chapter.id === 7 || chapter.id === 8 || chapter.id === 9;
+                                   chapter.id === 7 || chapter.id === 8 || chapter.id === 9 ||
+                                   chapter.id === 10;
   
   return (
     <div className="mb-8">
@@ -47,7 +48,8 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
   // Determine if we should show the commitment section
   const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3 || 
                                 chapter.id === 4 || chapter.id === 5 || chapter.id === 6 ||
-                                chapter.id === 7 || chapter.id === 8 || chapter.id === 9;
+                                chapter.id === 7 || chapter.id === 8 || chapter.id === 9 ||
+                                chapter.id === 10;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
@@ -60,6 +62,7 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
     if (chapter.id === 7) return "Commit to the Choice";
     if (chapter.id === 8) return "Commit to the Choice";
     if (chapter.id === 9) return "Commit to the Choice";
+    if (chapter.id === 10) return "Commit to the Choice";
     return "Commitment";
   };
 
@@ -92,6 +95,9 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
     if (chapter.id === 9) {
       return "I am intentional with who gets proximity to my power.";
     }
+    if (chapter.id === 10) {
+      return "I persist in silence.";
+    }
     return "";
   };
 
@@ -99,7 +105,7 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
   
   return (
     <div className="mt-10 pt-6 border-t border-crafted-gold">
-      <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-4">
+      <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-2">
         {getCommitmentTitle()}
       </h3>
       <p className="text-crafted-brown italic mb-4">
