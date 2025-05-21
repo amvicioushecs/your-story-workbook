@@ -1,11 +1,10 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Chapter } from '../data/chapters';
 import { useWorkbookData } from '../hooks/useWorkbookData';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Label } from './ui/label';
-import { Checkbox } from './ui/checkbox';
 
 interface WorkbookPageProps {
   chapter: Chapter;
@@ -16,19 +15,6 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
 
   const handleInputChange = (questionId: string, value: string) => {
     saveEntry(questionId, value);
-  };
-
-  const handleCheckboxChange = (questionId: string, option: string) => {
-    const currentValue = getEntry(questionId) || '';
-    const values = currentValue ? JSON.parse(currentValue) : [];
-    
-    if (values.includes(option)) {
-      // Remove option if already selected
-      saveEntry(questionId, JSON.stringify(values.filter((val: string) => val !== option)));
-    } else {
-      // Add option if not already selected
-      saveEntry(questionId, JSON.stringify([...values, option]));
-    }
   };
 
   const renderSignatureField = (questionId: string) => (
@@ -57,41 +43,15 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
     </div>
   );
 
-  const renderCircleCrossOptions = (question: any) => {
-    const selectedOptions = getEntry(question.id) ? JSON.parse(getEntry(question.id)) : [];
-    
-    return (
-      <div className="mt-4 space-y-3">
-        {question.options && question.options.map((option: string) => (
-          <div key={option} className="flex items-center space-x-2">
-            <Checkbox 
-              id={`${question.id}-${option}`}
-              checked={selectedOptions.includes(option)}
-              onCheckedChange={() => handleCheckboxChange(question.id, option)}
-              className="border-crafted-brown data-[state=checked]:bg-crafted-gold data-[state=checked]:border-crafted-gold"
-            />
-            <Label 
-              htmlFor={`${question.id}-${option}`}
-              className="text-crafted-brown font-medium cursor-pointer text-lg"
-            >
-              {option}
-            </Label>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   // Determine if we should show the chapter-specific heading
-  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
+  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2;
   // Determine if we should show the commitment section
-  const showCommitmentSection = chapter.id === 1 || chapter.id === 2 || chapter.id === 3;
+  const showCommitmentSection = chapter.id === 1 || chapter.id === 2;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
     if (chapter.id === 1) return "Commit to the Choice";
     if (chapter.id === 2) return "Commit to the Choice";
-    if (chapter.id === 3) return "Commit to the Choice";
     return "Commitment";
   };
 
@@ -139,8 +99,6 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
               renderSignatureField(question.id)
             ) : question.type === "commit" ? (
               renderCommitField(question.id, question.placeholder)
-            ) : question.type === "circle-cross" ? (
-              renderCircleCrossOptions(question)
             ) : question.multiline ? (
               <Textarea
                 id={question.id}
@@ -176,11 +134,6 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
           {chapter.id === 2 && (
             <p className="text-crafted-brown italic mb-4">
               I honor my wake-up by refusing to go back to sleep.
-            </p>
-          )}
-          {chapter.id === 3 && (
-            <p className="text-crafted-brown italic mb-4">
-              I will stop reacting. I will start crafting.
             </p>
           )}
         </div>

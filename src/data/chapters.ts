@@ -1,4 +1,3 @@
-
 export interface WorkbookQuestion {
   id: string;
   question: string;
@@ -144,93 +143,26 @@ export const chapters: Chapter[] = [
   },
   {
     id: 3,
-    title: "Default vs. Design",
-    snapshot: "Most people aren't living by choice—they're living by programming. Patterns on autopilot. Comfort disguised as stability. Decisions made by fear wearing a routine. This chapter isn't just a wake-up call. It's a blueprint reset. You're not here to react. You're here to design. Deliberately. Loudly. Daily.",
+    title: "Crafting Your Decision Framework",
     description: "Develop your personal system for making choices aligned with your values and vision.",
     questions: [
       {
         id: "3-1",
-        question: "Where are you living by default right now?",
-        placeholder: "Name the areas. Don't bullshit yourself.",
-        type: "circle-cross",
-        options: [
-          "Morning routine",
-          "Relationships",
-          "Work habits",
-          "Health decisions",
-          "Social circle",
-          "Emotional reactions",
-          "Communication",
-          "Your calendar"
-        ]
+        question: "What are your top 5 values that should guide your decisions?",
+        placeholder: "Examples: Freedom, Connection, Growth...",
+        multiline: true
       },
       {
         id: "3-2",
-        question: "Write: "Default looks like…"",
-        placeholder: "Describe what your default patterns look like...",
-        type: "commit",
-        multiline: false
+        question: "When faced with a difficult choice, what questions will you ask yourself?",
+        placeholder: "Create 3-5 powerful questions to guide your decision-making...",
+        multiline: true
       },
       {
         id: "3-3",
-        question: "Design would look like…",
-        placeholder: "Describe what your intentional design would look like...",
-        type: "commit",
-        multiline: false
-      },
-      {
-        id: "3-4",
-        question: "What's one daily behavior that belongs to your old self?",
-        placeholder: "That version of you who survived, coasted, settled. Name it. It's time to cut it.",
+        question: "How will you track the impact of your choices over time?",
+        placeholder: "Design your personal system for evaluating decisions...",
         multiline: true
-      },
-      {
-        id: "3-5",
-        question: "Old Self Habit:",
-        placeholder: "Write your old self habit here...",
-        type: "commit",
-        multiline: false
-      },
-      {
-        id: "3-6",
-        question: "New Self Design:",
-        placeholder: "Write your new self design here...",
-        type: "commit",
-        multiline: false
-      },
-      {
-        id: "3-7",
-        question: "Where does survival still call the shots in your life?",
-        placeholder: "And what's the cost of obeying it?",
-        multiline: true
-      },
-      {
-        id: "3-8",
-        question: "I stay in survival mode when…",
-        placeholder: "Describe when you stay in survival mode...",
-        type: "commit",
-        multiline: false
-      },
-      {
-        id: "3-9",
-        question: "It costs me…",
-        placeholder: "Describe what staying in survival mode costs you...",
-        type: "commit",
-        multiline: false
-      },
-      {
-        id: "3-10",
-        question: "I will no longer run on default in the area of:",
-        placeholder: "Name the specific area you'll stop running on default...",
-        type: "commit",
-        multiline: false
-      },
-      {
-        id: "3-11",
-        question: "Instead, I will create a system that reflects the identity I'm building—not the identity I inherited.",
-        placeholder: "Type your name as a commitment to this choice",
-        type: "signature",
-        multiline: false
       }
     ]
   }
