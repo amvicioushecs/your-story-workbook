@@ -43,6 +43,18 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
     </div>
   );
 
+  // Determine if we should show the chapter-specific heading
+  const showReflectRevealSection = chapter.id === 1 || chapter.id === 2;
+  // Determine if we should show the commitment section
+  const showCommitmentSection = chapter.id === 1 || chapter.id === 2;
+  
+  // Get the commitment section title based on chapter
+  const getCommitmentTitle = () => {
+    if (chapter.id === 1) return "Commit to the Choice";
+    if (chapter.id === 2) return "Commit to the Choice";
+    return "Commitment";
+  };
+
   return (
     <div className="paper-texture p-6 rounded-lg shadow-lg max-w-4xl mx-auto">
       <div className="mb-8">
@@ -63,9 +75,11 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
         <p className="text-lg text-crafted-brown italic mb-6">
           {chapter.description}
         </p>
-        {chapter.id === 1 && (
+        {showReflectRevealSection && (
           <div className="mb-6">
-            <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-2">Reflect + Reveal</h3>
+            <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-2">
+              Reflect + Reveal
+            </h3>
           </div>
         )}
         <div className="w-full h-1 bg-crafted-gold opacity-30 rounded-full"></div>
@@ -107,12 +121,21 @@ const WorkbookPage: React.FC<WorkbookPageProps> = ({ chapter }) => {
         ))}
       </div>
 
-      {chapter.id === 1 && (
+      {showCommitmentSection && (
         <div className="mt-10 pt-6 border-t border-crafted-gold">
-          <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-4">Commit to the Choice</h3>
-          <p className="text-crafted-brown italic mb-4">
-            Sign below to acknowledge your commitment to crafting your life by choice.
-          </p>
+          <h3 className="font-serif font-semibold text-xl text-crafted-brown mb-4">
+            {getCommitmentTitle()}
+          </h3>
+          {chapter.id === 1 && (
+            <p className="text-crafted-brown italic mb-4">
+              Sign below to acknowledge your commitment to crafting your life by choice.
+            </p>
+          )}
+          {chapter.id === 2 && (
+            <p className="text-crafted-brown italic mb-4">
+              I honor my wake-up by refusing to go back to sleep.
+            </p>
+          )}
         </div>
       )}
     </div>
