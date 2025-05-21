@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,6 +62,14 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom colors for the workbook app
+				crafted: {
+					brown: '#582E0E',
+					gold: '#DCBD7E',
+					cream: '#F5EFE0',
+					lightBrown: '#8B5E34',
+					darkBrown: '#3A1F09',
 				}
 			},
 			borderRadius: {
@@ -89,6 +98,11 @@ export default {
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out'
+			},
+			fontFamily: {
+				serif: ['Playfair Display', 'Georgia', 'serif'],
+				sans: ['Inter', 'sans-serif'],
+				handwriting: ['Dancing Script', 'cursive']
 			}
 		}
 	},
