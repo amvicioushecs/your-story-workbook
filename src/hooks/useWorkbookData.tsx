@@ -4,8 +4,8 @@ import { createClient } from '@supabase/supabase-js';
 import { useToast } from '@/components/ui/use-toast';
 
 // Initialize Supabase client (using public anon key which is safe to expose in frontend code)
-const SUPABASE_URL = process.env.SUPABASE_URL || 'https://your-supabase-url.supabase.co';
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY || 'your-anon-key';
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://your-supabase-url.supabase.co';
+const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
