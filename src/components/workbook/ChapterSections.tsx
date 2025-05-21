@@ -12,7 +12,7 @@ export const ChapterHeader: React.FC<ChapterSectionProps> = ({ chapter }) => {
                                    chapter.id === 4 || chapter.id === 5 || chapter.id === 6 || 
                                    chapter.id === 7 || chapter.id === 8 || chapter.id === 9 ||
                                    chapter.id === 10 || chapter.id === 11 || chapter.id === 12 ||
-                                   chapter.id === 13;
+                                   chapter.id === 13 || chapter.id === 14;
   
   return (
     <div className="mb-8">
@@ -51,7 +51,7 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
                                 chapter.id === 4 || chapter.id === 5 || chapter.id === 6 ||
                                 chapter.id === 7 || chapter.id === 8 || chapter.id === 9 ||
                                 chapter.id === 10 || chapter.id === 11 || chapter.id === 12 ||
-                                chapter.id === 13;
+                                chapter.id === 13 || chapter.id === 14;
   
   // Get the commitment section title based on chapter
   const getCommitmentTitle = () => {
@@ -68,6 +68,7 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
     if (chapter.id === 11) return "Commit to the Choice";
     if (chapter.id === 12) return "Commit to the Choice";
     if (chapter.id === 13) return "Commit to the Choice";
+    if (chapter.id === 14) return "Commit to the Choice";
     return "Commitment";
   };
 
@@ -111,6 +112,9 @@ export const ChapterCommitmentSection: React.FC<ChapterSectionProps> = ({ chapte
     }
     if (chapter.id === 13) {
       return "I craft in a way that outlives me.";
+    }
+    if (chapter.id === 14) {
+      return "Radical ownership is my freedom.";
     }
     return "";
   };
