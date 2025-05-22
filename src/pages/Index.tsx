@@ -53,7 +53,19 @@ const Index = () => {
           <h2 className="text-2xl font-serif font-semibold text-crafted-brown">Your Personal Workbook</h2>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="flex flex-col lg:flex-row gap-8 relative">
+          {/* Sidebar toggle button - REPOSITIONED outside the sidebar */}
+          <div className="hidden lg:block absolute left-0 z-10" style={{ left: sidebarOpen ? "calc(25% - 16px)" : "-8px" }}>
+            <Button
+              onClick={toggleSidebar}
+              variant="outline"
+              size="icon"
+              className="bg-crafted-cream hover:bg-crafted-gold hover:text-crafted-cream border-crafted-gold rounded-full h-8 w-8 shadow-md transition-all duration-300"
+            >
+              {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
+            </Button>
+          </div>
+
           {/* Sidebar for larger screens */}
           <div 
             className={cn(
@@ -62,18 +74,6 @@ const Index = () => {
             )}
           >
             <div className="lg:pr-4">
-              {/* Toggle button for sidebar - moved above chapters */}
-              <div className="hidden lg:flex justify-end mb-4">
-                <Button
-                  onClick={toggleSidebar}
-                  variant="outline"
-                  size="icon"
-                  className="bg-crafted-cream hover:bg-crafted-gold hover:text-crafted-cream border-crafted-gold rounded-full h-8 w-8 shadow-md"
-                >
-                  {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
-                </Button>
-              </div>
-              
               <ChapterNavigation 
                 activeChapter={activeChapter} 
                 setActiveChapter={setActiveChapter} 
