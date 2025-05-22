@@ -5,11 +5,14 @@ import WorkbookPage from '../components/WorkbookPage';
 import SavePrompt from '../components/SavePrompt';
 import { chapters } from '../data/chapters';
 import { useWorkbookData } from '../hooks/useWorkbookData';
-import { BookText } from 'lucide-react';
+import { BookText, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 const Index = () => {
   const [activeChapter, setActiveChapter] = useState(1);
   const [lastSaved, setLastSaved] = useState<Date | undefined>();
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const { isLoaded } = useWorkbookData();
   const currentChapter = chapters.find(chapter => chapter.id === activeChapter) || chapters[0];
 
@@ -19,6 +22,10 @@ const Index = () => {
       setLastSaved(new Date());
     }
   }, [isLoaded]);
+
+  const toggleSidebar = () => {
+    setSidebarOpen(prev => !prev);
+  };
 
   return (
     <div className="min-h-screen pb-20">
@@ -48,8 +55,13 @@ const Index = () => {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar for larger screens */}
-          <div className="lg:w-1/4">
-            <div className="sticky top-8">
+          <div 
+            className={cn(
+              "lg:sticky lg:top-8 transition-all duration-300 ease-in-out overflow-hidden",
+              sidebarOpen ? "lg:w-1/4" : "lg:w-0"
+            )}
+          >
+            <div className="lg:pr-4">
               <ChapterNavigation 
                 activeChapter={activeChapter} 
                 setActiveChapter={setActiveChapter} 
@@ -63,8 +75,21 @@ const Index = () => {
             </div>
           </div>
 
+          {/* Toggle button for sidebar */}
+          <Button
+            onClick={toggleSidebar}
+            variant="outline"
+            size="icon"
+            className="hidden lg:flex fixed left-0 top-1/2 transform -translate-y-1/2 z-10 bg-crafted-cream hover:bg-crafted-gold hover:text-crafted-cream border-crafted-gold rounded-r-full rounded-l-none h-12 w-8 shadow-md"
+          >
+            {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
+          </Button>
+
           {/* Main content */}
-          <div className="lg:w-3/4">
+          <div className={cn(
+            "transition-all duration-300",
+            sidebarOpen ? "lg:w-3/4" : "lg:w-full"
+          )}>
             {isLoaded && <WorkbookPage chapter={currentChapter} />}
           </div>
         </div>
