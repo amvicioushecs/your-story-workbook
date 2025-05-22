@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users, MessageCircle, UserPlus, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Avatar } from '@/components/ui/avatar';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '../contexts/AuthContext';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
@@ -68,11 +67,11 @@ const CommunityPage = () => {
 
   // Community members (mock data)
   const communityMembers = [
-    { id: 1, name: "Sarah K.", role: "Member", joined: "1 month ago" },
-    { id: 2, name: "Michael T.", role: "Member", joined: "2 months ago" },
-    { id: 3, name: "Elena J.", role: "Member", joined: "3 weeks ago" },
-    { id: 4, name: "David L.", role: "Moderator", joined: "4 months ago" },
-    { id: 5, name: "Rebecca S.", role: "Member", joined: "1 week ago" }
+    { id: 1, name: "Sarah K.", role: "Member", joined: "1 month ago", avatar: "https://i.pravatar.cc/150?img=1" },
+    { id: 2, name: "Michael T.", role: "Member", joined: "2 months ago", avatar: "https://i.pravatar.cc/150?img=2" },
+    { id: 3, name: "Elena J.", role: "Member", joined: "3 weeks ago", avatar: "https://i.pravatar.cc/150?img=3" },
+    { id: 4, name: "David L.", role: "Moderator", joined: "4 months ago", avatar: "https://i.pravatar.cc/150?img=4" },
+    { id: 5, name: "Rebecca S.", role: "Member", joined: "1 week ago", avatar: "https://i.pravatar.cc/150?img=5" }
   ];
 
   return (
@@ -239,9 +238,10 @@ const CommunityPage = () => {
                 <PopoverTrigger asChild>
                   <div className="bg-white/70 p-4 rounded-lg border border-crafted-gold/30 hover:border-crafted-gold transition-all hover:shadow-md text-center cursor-pointer">
                     <Avatar className="h-20 w-20 mx-auto mb-3">
-                      <div className="bg-crafted-gold text-crafted-brown text-xl font-bold">
+                      <AvatarImage src={member.avatar} alt={member.name} />
+                      <AvatarFallback className="bg-crafted-gold text-crafted-brown text-xl font-bold">
                         {member.name.charAt(0)}
-                      </div>
+                      </AvatarFallback>
                     </Avatar>
                     <h3 className="font-serif text-lg font-semibold text-crafted-brown">{member.name}</h3>
                     <Badge className={`${member.role === 'Moderator' ? 'bg-crafted-gold' : 'bg-crafted-gold/30'} text-crafted-brown mt-2`}>
@@ -253,9 +253,10 @@ const CommunityPage = () => {
                 <PopoverContent className="w-60">
                   <div className="text-center mb-4">
                     <Avatar className="h-16 w-16 mx-auto mb-2">
-                      <div className="bg-crafted-gold text-crafted-brown text-xl font-bold">
+                      <AvatarImage src={member.avatar} alt={member.name} />
+                      <AvatarFallback className="bg-crafted-gold text-crafted-brown text-xl font-bold">
                         {member.name.charAt(0)}
-                      </div>
+                      </AvatarFallback>
                     </Avatar>
                     <h4 className="font-serif text-lg font-semibold text-crafted-brown">{member.name}</h4>
                     <p className="text-crafted-lightBrown text-sm">Joined {member.joined}</p>
