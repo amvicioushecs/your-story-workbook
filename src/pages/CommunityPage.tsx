@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Users, MessageCircle, UserPlus, ChevronRight } from 'lucide-react';
+import { Users, MessageCircle, UserPlus, ChevronRight, BookOpen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -103,6 +103,40 @@ const CommunityPage = () => {
 
       {/* Main content */}
       <div className="container px-4 md:px-6 py-8 max-w-6xl mx-auto">
+        {/* Author section */}
+        <section className="mb-16 bg-white/70 p-8 rounded-lg border border-crafted-gold/30 shadow-md">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="md:w-1/4 flex justify-center">
+              <Avatar className="h-48 w-48 rounded-lg border-4 border-crafted-gold">
+                <AvatarImage src="/lovable-uploads/431471b9-3570-4339-9808-57787f74d22d.png" alt="Hector Verdugo" />
+                <AvatarFallback className="bg-crafted-gold text-crafted-brown text-4xl font-bold">
+                  HV
+                </AvatarFallback>
+              </Avatar>
+            </div>
+            <div className="md:w-3/4 text-center md:text-left">
+              <Badge className="mb-2 bg-crafted-gold text-crafted-brown px-3 py-1 text-sm">Author</Badge>
+              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-crafted-brown mb-4">
+                Hector Verdugo
+              </h2>
+              <p className="text-xl font-serif italic text-crafted-lightBrown mb-4">
+                "Crafted By Choice" - A guide to intentional living and personal transformation
+              </p>
+              <p className="text-lg text-crafted-lightBrown mb-6">
+                Hector Verdugo brings his wealth of experience in personal development and transformation to the Crafted By Choice community. Through his book and this interactive platform, he guides members on their journey to create meaningful change through daily intentional choices.
+              </p>
+              <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                <Button className="bg-crafted-brown hover:bg-crafted-brown/90 text-crafted-cream">
+                  <BookOpen className="mr-2 h-5 w-5" /> About the Book
+                </Button>
+                <Button variant="outline" className="border-crafted-gold text-crafted-brown hover:bg-crafted-gold/20">
+                  Join Author Q&A
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Community stats */}
         <section className="mb-16">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
