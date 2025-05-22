@@ -3,9 +3,9 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
 import { useToast } from '@/components/ui/use-toast';
 
-// Initialize Supabase client
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || '';
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+// Initialize Supabase client with the provided credentials
+const SUPABASE_URL = 'https://ydlyhdbknvxijydifavg.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkbHloZGJrbnZ4aWp5ZGlmYXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4NjA1NDgsImV4cCI6MjA2MzQzNjU0OH0.ZIvfvwkX9EjG7iR9CRmtRVtLQ8NY6-ahEgkaDysV0YU';
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
