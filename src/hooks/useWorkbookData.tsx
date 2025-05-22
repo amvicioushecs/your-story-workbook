@@ -1,13 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import { createClient } from '@supabase/supabase-js';
 import { useToast } from '@/components/ui/use-toast';
-
-// Initialize Supabase client (using public anon key which is safe to expose in frontend code)
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://your-supabase-url.supabase.co';
-const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'your-anon-key';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { useAuth } from '../contexts/AuthContext';
 
 export interface WorkbookEntry {
   questionId: string;
@@ -18,28 +12,29 @@ export function useWorkbookData() {
   const [entries, setEntries] = useState<Record<string, string>>({});
   const [isLoaded, setIsLoaded] = useState(false);
   const { toast } = useToast();
+  const { user, supabase } = useAuth();
 
-  // Load data when component mounts
+  // Load data when component mounts or when auth state changes
   useEffect(() => {
     const loadData = async () => {
       try {
-        // Try to get user session first
-        const { data: { session } } = await supabase.auth.getSession();
-        
-        if (session?.user) {
+        if (user) {
           // User is logged in, fetch data from Supabase
           const { data, error } = await supabase
             .from('workbook_entries')
             .select('question_id, answer')
-            .eq('user_id', session.user.id);
+            .eq('user_id', user.id);
           
           if (error) throw error;
           
           // Convert array of entries to Record object
-          const entriesObject = data.reduce(
-            (acc, entry) => ({ ...acc, [entry.question_id]: entry.answer }),
-            {}
-          );
+          const entriesObject = data && data.length > 0 
+            ? data.reduce(
+                (acc, entry) => ({ ...acc, [entry.question_id]: entry.answer }),
+                {}
+              )
+            : {};
+          
           setEntries(entriesObject);
         } else {
           // No user session, fall back to localStorage
@@ -70,7 +65,7 @@ export function useWorkbookData() {
     };
 
     loadData();
-  }, [toast]);
+  }, [user, supabase, toast]);
 
   // Save entry to state, localStorage, and Supabase if authenticated
   const saveEntry = async (questionId: string, answer: string) => {
@@ -83,15 +78,13 @@ export function useWorkbookData() {
 
     try {
       // Check if user is authenticated
-      const { data: { session } } = await supabase.auth.getSession();
-      
-      if (session?.user) {
+      if (user) {
         // User is logged in, save to Supabase
         const { error } = await supabase
           .from('workbook_entries')
           .upsert(
             { 
-              user_id: session.user.id,
+              user_id: user.id,
               question_id: questionId,
               answer: answer
             },
@@ -150,20 +143,23 @@ export function useWorkbookData() {
       localStorage.setItem('workbookEntries', JSON.stringify(mergedEntries));
       
       // Save to Supabase if user is authenticated
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session?.user) {
+      if (user) {
         // Convert to array of objects for Supabase
         const entriesArray = Object.entries(mergedEntries).map(([questionId, answer]) => ({
-          user_id: session.user.id,
+          user_id: user.id,
           question_id: questionId,
           answer: answer
         }));
         
-        // Save each entry
-        for (const entry of entriesArray) {
-          await supabase
+        // Save entries in batches to avoid too many requests
+        const batchSize = 50;
+        for (let i = 0; i < entriesArray.length; i += batchSize) {
+          const batch = entriesArray.slice(i, i + batchSize);
+          const { error } = await supabase
             .from('workbook_entries')
-            .upsert(entry, { onConflict: 'user_id,question_id' });
+            .upsert(batch, { onConflict: 'user_id,question_id' });
+            
+          if (error) throw error;
         }
       }
       
