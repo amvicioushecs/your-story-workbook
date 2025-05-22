@@ -14,6 +14,7 @@ import { chapter11 } from './chapters/chapter11';
 import { chapter12 } from './chapters/chapter12';
 import { chapter13 } from './chapters/chapter13';
 import { chapter14 } from './chapters/chapter14';
+import { chapter15 } from './chapters/chapter15';
 
 export type { WorkbookQuestion, Chapter } from './chapterTypes';
 
@@ -31,5 +32,6 @@ export const chapters: Chapter[] = [
   chapter11,
   chapter12,
   chapter13,
-  chapter14
+  chapter14,
+  chapter15
 ];
