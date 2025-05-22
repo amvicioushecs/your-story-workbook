@@ -1,16 +1,14 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, BookText, ChevronRight, PencilLine, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
-
 const HomePage = () => {
-  const { user } = useAuth();
-
-  return (
-    <div className="min-h-screen">
+  const {
+    user
+  } = useAuth();
+  return <div className="min-h-screen">
       {/* Hero section */}
       <div className="wood-texture text-center py-16 px-4 mb-12">
         <div className="max-w-5xl mx-auto">
@@ -29,13 +27,11 @@ const HomePage = () => {
                 Start Your Workbook <ChevronRight className="ml-2" />
               </Button>
             </Link>
-            {!user && (
-              <Link to="/auth">
-                <Button variant="outline" className="border-crafted-gold text-crafted-cream hover:bg-crafted-gold/20 text-lg px-6 py-6">
+            {!user && <Link to="/auth">
+                <Button variant="outline" className="border-crafted-gold text-lg px-6 py-6 text-amber-500 bg-yellow-900 hover:bg-yellow-800">
                   Sign Up <User className="ml-2" />
                 </Button>
-              </Link>
-            )}
+              </Link>}
           </div>
         </div>
       </div>
@@ -94,13 +90,11 @@ const HomePage = () => {
             <CardContent>
               <p>{user ? 'Your progress is automatically saved to your account.' : 'Create an account to save your progress across devices and sessions.'}</p>
             </CardContent>
-            {!user && (
-              <CardFooter>
+            {!user && <CardFooter>
                 <Link to="/auth" className="w-full">
                   <Button variant="outline" className="w-full">Sign Up Now</Button>
                 </Link>
-              </CardFooter>
-            )}
+              </CardFooter>}
           </Card>
         </section>
 
@@ -169,8 +163,6 @@ const HomePage = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default HomePage;
