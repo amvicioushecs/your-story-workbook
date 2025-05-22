@@ -1,11 +1,11 @@
-
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ChapterNavigation from '../components/ChapterNavigation';
 import WorkbookPage from '../components/WorkbookPage';
 import SavePrompt from '../components/SavePrompt';
 import { chapters } from '../data/chapters';
 import { useWorkbookData } from '../hooks/useWorkbookData';
-import { BookText, ChevronLeft, ChevronRight, Save, Upload } from 'lucide-react';
+import { BookText, ChevronLeft, ChevronRight, Home, Save, Upload } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { AuthButton } from '../components/auth/AuthForm';
@@ -83,6 +83,10 @@ const Index = () => {
         {/* Auth controls and action buttons */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center justify-center space-x-2">
+            <Link to="/" className="flex items-center text-crafted-brown hover:text-crafted-gold transition-colors mr-4">
+              <Home className="h-5 w-5 mr-1" />
+              <span>Home</span>
+            </Link>
             <BookText className="h-6 w-6 text-crafted-brown" />
             <h2 className="text-2xl font-serif font-semibold text-crafted-brown">Your Personal Workbook</h2>
           </div>
