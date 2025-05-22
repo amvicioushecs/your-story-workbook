@@ -62,6 +62,18 @@ const Index = () => {
             )}
           >
             <div className="lg:pr-4">
+              {/* Toggle button for sidebar - moved above chapters */}
+              <div className="hidden lg:flex justify-end mb-4">
+                <Button
+                  onClick={toggleSidebar}
+                  variant="outline"
+                  size="icon"
+                  className="bg-crafted-cream hover:bg-crafted-gold hover:text-crafted-cream border-crafted-gold rounded-full h-8 w-8 shadow-md"
+                >
+                  {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
+                </Button>
+              </div>
+              
               <ChapterNavigation 
                 activeChapter={activeChapter} 
                 setActiveChapter={setActiveChapter} 
@@ -74,16 +86,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-
-          {/* Toggle button for sidebar */}
-          <Button
-            onClick={toggleSidebar}
-            variant="outline"
-            size="icon"
-            className="hidden lg:flex fixed left-0 top-1/2 transform -translate-y-1/2 z-10 bg-crafted-cream hover:bg-crafted-gold hover:text-crafted-cream border-crafted-gold rounded-r-full rounded-l-none h-12 w-8 shadow-md"
-          >
-            {sidebarOpen ? <ChevronLeft /> : <ChevronRight />}
-          </Button>
 
           {/* Main content */}
           <div className={cn(
