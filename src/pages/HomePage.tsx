@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users } from 'lucide-react';
@@ -180,9 +181,11 @@ const HomePage = () => {
           </div>
           
           <div className="text-center">
-            <Button className="bg-crafted-gold hover:bg-crafted-gold/90 text-crafted-brown text-lg px-6 py-5">
-              Join Our Community
-            </Button>
+            <Link to="/community">
+              <Button className="bg-crafted-gold hover:bg-crafted-gold/90 text-crafted-brown text-lg px-6 py-5">
+                Join Our Community
+              </Button>
+            </Link>
           </div>
         </section>
 
@@ -244,9 +247,9 @@ const HomePage = () => {
               <Link to="/auth" className="text-crafted-cream hover:text-crafted-gold transition-colors">
                 Account
               </Link>
-              <a href="#" className="text-crafted-cream hover:text-crafted-gold transition-colors">
+              <Link to="/community" className="text-crafted-cream hover:text-crafted-gold transition-colors">
                 Community
-              </a>
+              </Link>
             </div>
           </div>
           <div className="mt-6 text-center text-crafted-cream/50 text-sm">
