@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Users, MessageCircle, UserPlus, ChevronRight } from 'lucide-react';
@@ -67,11 +68,11 @@ const CommunityPage = () => {
 
   // Community members (mock data)
   const communityMembers = [
-    { id: 1, name: "Sarah K.", role: "Member", joined: "1 month ago", avatar: "https://i.pravatar.cc/150?img=1" },
-    { id: 2, name: "Michael T.", role: "Member", joined: "2 months ago", avatar: "https://i.pravatar.cc/150?img=2" },
-    { id: 3, name: "Elena J.", role: "Member", joined: "3 weeks ago", avatar: "https://i.pravatar.cc/150?img=3" },
-    { id: 4, name: "David L.", role: "Moderator", joined: "4 months ago", avatar: "https://i.pravatar.cc/150?img=4" },
-    { id: 5, name: "Rebecca S.", role: "Member", joined: "1 week ago", avatar: "https://i.pravatar.cc/150?img=5" }
+    { id: 1, name: "Sarah K.", role: "Member", joined: "1 month ago", avatar: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=120&h=120" },
+    { id: 2, name: "Michael T.", role: "Member", joined: "2 months ago", avatar: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=120&h=120" },
+    { id: 3, name: "Elena J.", role: "Member", joined: "3 weeks ago", avatar: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=120&h=120" },
+    { id: 4, name: "David L.", role: "Moderator", joined: "4 months ago", avatar: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=120&h=120" },
+    { id: 5, name: "Rebecca S.", role: "Member", joined: "1 week ago", avatar: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&q=80&w=120&h=120" }
   ];
 
   return (
