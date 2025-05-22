@@ -1,9 +1,11 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, BookText, ChevronRight, PencilLine, User } from 'lucide-react';
+import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
+
 const HomePage = () => {
   const {
     user
@@ -48,6 +50,49 @@ const HomePage = () => {
               This interactive workbook helps you explore how your choices shape your life's journey.
               Work through chapters at your own pace, and save your progress along the way.
             </p>
+          </div>
+        </section>
+
+        {/* Book purchase section */}
+        <section className="mb-16">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="md:w-1/2 flex justify-center">
+              <div className="relative transform hover:scale-105 transition-all duration-300">
+                <img 
+                  src="/lovable-uploads/a7789139-634a-468b-9f13-2ea2a4eec425.png" 
+                  alt="Crafted By Choice Book" 
+                  className="w-full max-w-md shadow-2xl rounded-md"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-crafted-gold text-crafted-brown px-4 py-2 rounded-full font-bold shadow-lg">
+                  Now Available!
+                </div>
+              </div>
+            </div>
+            <div className="md:w-1/2">
+              <h2 className="text-3xl md:text-4xl font-serif font-semibold text-crafted-brown mb-4">
+                Get The Physical Book
+              </h2>
+              <div className="bg-yellow-50 border-l-4 border-crafted-gold p-4 mb-6">
+                <p className="italic text-xl font-serif text-crafted-brown mb-2">
+                  "Not lucky. Not stuck. Just uncrafted—until now."
+                </p>
+                <p className="text-crafted-lightBrown">
+                  — Hector Verdugo
+                </p>
+              </div>
+              <p className="text-lg text-crafted-lightBrown mb-6">
+                Take your journey further with the complete physical book. Featuring additional exercises, 
+                insights, and a beautifully crafted hardcover design that makes a perfect gift.
+              </p>
+              <a href="#" className="inline-block">
+                <Button className="bg-crafted-brown hover:bg-crafted-brown/90 text-crafted-gold text-lg px-6 py-6">
+                  Purchase Book <ShoppingCart className="ml-2" />
+                </Button>
+              </a>
+              <p className="text-sm text-crafted-lightBrown mt-3">
+                *Shipping available worldwide. Orders typically arrive within 5-7 business days.
+              </p>
+            </div>
           </div>
         </section>
 
