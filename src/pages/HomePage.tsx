@@ -1,7 +1,6 @@
-
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users } from 'lucide-react';
+import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
@@ -10,6 +9,20 @@ const HomePage = () => {
   const {
     user
   } = useAuth();
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [isPlaying, setIsPlaying] = React.useState(false);
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
+      setIsPlaying(!isPlaying);
+    }
+  };
+
   return <div className="min-h-screen">
       {/* Hero section */}
       <div className="wood-texture text-center py-16 px-4 mb-12">
@@ -50,6 +63,35 @@ const HomePage = () => {
               This interactive workbook helps you explore how your choices shape your life's journey.
               Work through chapters at your own pace, and save your progress along the way.
             </p>
+          </div>
+        </section>
+
+        {/* Audio message from Hector */}
+        <section className="mb-8">
+          <div className="bg-crafted-brown/10 rounded-lg p-6 border border-crafted-gold/30">
+            <h3 className="text-2xl font-serif font-semibold text-crafted-brown mb-4 flex items-center">
+              <span>Message from the Author</span>
+            </h3>
+            <div className="flex items-center gap-4">
+              <Button 
+                onClick={toggleAudio} 
+                variant="outline" 
+                size="icon" 
+                className="h-12 w-12 rounded-full border-2 border-crafted-gold bg-crafted-gold/10 hover:bg-crafted-gold/20"
+              >
+                {isPlaying ? <Pause className="h-6 w-6 text-crafted-brown" /> : <Play className="h-6 w-6 text-crafted-brown ml-1" />}
+              </Button>
+              <div className="flex-1">
+                <p className="text-lg text-crafted-brown font-medium">Hector Verdugo on Crafted By Choice</p>
+                <p className="text-crafted-lightBrown">Listen to Hector explain the journey behind the book</p>
+              </div>
+            </div>
+            <audio 
+              ref={audioRef} 
+              src="https://notebooklm.google.com/notebook/bfd54611-a8e3-4b9c-bc73-c6c58d3e3dd6/audio" 
+              onEnded={() => setIsPlaying(false)} 
+              className="hidden"
+            />
           </div>
         </section>
 
