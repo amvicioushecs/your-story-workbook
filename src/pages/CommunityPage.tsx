@@ -8,74 +8,89 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '../contexts/AuthContext';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
-
 const CommunityPage = () => {
-  const { user } = useAuth();
-  
+  const {
+    user
+  } = useAuth();
+
   // Upcoming events (mock data)
-  const upcomingEvents = [
-    {
-      id: 1,
-      title: "Weekly Accountability Circle",
-      date: "June 2, 2025",
-      time: "7:00 PM EST",
-      description: "Join our weekly virtual meetup where we share our progress, challenges, and support each other in our journey.",
-      attendees: 18
-    },
-    {
-      id: 2,
-      title: "Book Club Discussion: Chapter 4",
-      date: "June 5, 2025",
-      time: "6:30 PM EST",
-      description: "Deep dive into Chapter 4: The Power of Daily Choices. Come prepared to share your insights!",
-      attendees: 12
-    },
-    {
-      id: 3,
-      title: "Guest Speaker: Overcoming Limiting Beliefs",
-      date: "June 10, 2025",
-      time: "8:00 PM EST",
-      description: "Special session with Dr. Maria Reynolds on identifying and overcoming limiting beliefs that hold us back.",
-      attendees: 31
-    }
-  ];
+  const upcomingEvents = [{
+    id: 1,
+    title: "Weekly Accountability Circle",
+    date: "June 2, 2025",
+    time: "7:00 PM EST",
+    description: "Join our weekly virtual meetup where we share our progress, challenges, and support each other in our journey.",
+    attendees: 18
+  }, {
+    id: 2,
+    title: "Book Club Discussion: Chapter 4",
+    date: "June 5, 2025",
+    time: "6:30 PM EST",
+    description: "Deep dive into Chapter 4: The Power of Daily Choices. Come prepared to share your insights!",
+    attendees: 12
+  }, {
+    id: 3,
+    title: "Guest Speaker: Overcoming Limiting Beliefs",
+    date: "June 10, 2025",
+    time: "8:00 PM EST",
+    description: "Special session with Dr. Maria Reynolds on identifying and overcoming limiting beliefs that hold us back.",
+    attendees: 31
+  }];
 
   // Recent discussions (mock data)
-  const recentDiscussions = [
-    {
-      id: 1,
-      title: "How do you stay accountable to your daily choices?",
-      author: "Sarah K.",
-      replies: 24,
-      lastActive: "2 hours ago"
-    },
-    {
-      id: 2,
-      title: "My breakthrough moment with Chapter 7",
-      author: "Michael T.",
-      replies: 16,
-      lastActive: "Yesterday"
-    },
-    {
-      id: 3,
-      title: "Strategies for reframing negative thought patterns",
-      author: "Elena J.",
-      replies: 31,
-      lastActive: "3 days ago"
-    }
-  ];
+  const recentDiscussions = [{
+    id: 1,
+    title: "How do you stay accountable to your daily choices?",
+    author: "Sarah K.",
+    replies: 24,
+    lastActive: "2 hours ago"
+  }, {
+    id: 2,
+    title: "My breakthrough moment with Chapter 7",
+    author: "Michael T.",
+    replies: 16,
+    lastActive: "Yesterday"
+  }, {
+    id: 3,
+    title: "Strategies for reframing negative thought patterns",
+    author: "Elena J.",
+    replies: 31,
+    lastActive: "3 days ago"
+  }];
 
   // Community members (mock data)
-  const communityMembers = [
-    { id: 1, name: "Sarah K.", role: "Member", joined: "1 month ago", avatar: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=120&h=120" },
-    { id: 2, name: "Michael T.", role: "Member", joined: "2 months ago", avatar: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=120&h=120" },
-    { id: 3, name: "Elena J.", role: "Member", joined: "3 weeks ago", avatar: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=120&h=120" },
-    { id: 4, name: "David L.", role: "Moderator", joined: "4 months ago", avatar: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=120&h=120" },
-    { id: 5, name: "Rebecca S.", role: "Member", joined: "1 week ago", avatar: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&q=80&w=120&h=120" }
-  ];
-
-  return (
-    <div className="min-h-screen">
+  const communityMembers = [{
+    id: 1,
+    name: "Sarah K.",
+    role: "Member",
+    joined: "1 month ago",
+    avatar: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=120&h=120"
+  }, {
+    id: 2,
+    name: "Michael T.",
+    role: "Member",
+    joined: "2 months ago",
+    avatar: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&q=80&w=120&h=120"
+  }, {
+    id: 3,
+    name: "Elena J.",
+    role: "Member",
+    joined: "3 weeks ago",
+    avatar: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=120&h=120"
+  }, {
+    id: 4,
+    name: "David L.",
+    role: "Moderator",
+    joined: "4 months ago",
+    avatar: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=120&h=120"
+  }, {
+    id: 5,
+    name: "Rebecca S.",
+    role: "Member",
+    joined: "1 week ago",
+    avatar: "https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&q=80&w=120&h=120"
+  }];
+  return <div className="min-h-screen">
       {/* Hero section */}
       <div className="wood-texture text-center py-16 px-4 mb-12">
         <div className="max-w-5xl mx-auto">
@@ -88,15 +103,13 @@ const CommunityPage = () => {
           <p className="text-xl text-crafted-cream opacity-90 max-w-2xl mx-auto mb-8 animate-fade-in animation-delay-300">
             Join a supportive network of individuals on their journey to craft better lives through intentional choices.
           </p>
-          {!user && (
-            <div className="animate-fade-in animation-delay-450">
+          {!user && <div className="animate-fade-in animation-delay-450">
               <Link to="/auth">
                 <Button className="bg-crafted-gold hover:bg-crafted-gold/90 text-crafted-brown text-lg px-6 py-6">
                   Sign Up to Join <UserPlus className="ml-2" />
                 </Button>
               </Link>
-            </div>
-          )}
+            </div>}
         </div>
       </div>
 
@@ -107,7 +120,7 @@ const CommunityPage = () => {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/4 flex justify-center">
               <Avatar className="h-48 w-48 rounded-lg border-4 border-crafted-gold">
-                <AvatarImage src="/lovable-uploads/431471b9-3570-4339-9808-57787f74d22d.png" alt="Hector Verdugo" />
+                <AvatarImage src="/lovable-uploads/431471b9-3570-4339-9808-57787f74d22d.png" alt="Hector Verdugo" className="object-fill" />
                 <AvatarFallback className="bg-crafted-gold text-crafted-brown text-4xl font-bold">
                   HV
                 </AvatarFallback>
@@ -209,8 +222,7 @@ const CommunityPage = () => {
             Upcoming Community Events
           </h2>
           <div className="space-y-6">
-            {upcomingEvents.map((event) => (
-              <Card key={event.id} className="border-crafted-gold/30 hover:border-crafted-gold transition-all hover:shadow-md">
+            {upcomingEvents.map(event => <Card key={event.id} className="border-crafted-gold/30 hover:border-crafted-gold transition-all hover:shadow-md">
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <CardTitle className="text-xl font-serif text-crafted-brown">{event.title}</CardTitle>
@@ -224,8 +236,7 @@ const CommunityPage = () => {
                     Join Event
                   </Button>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
           <div className="mt-8 text-center">
             <Button variant="outline" className="border-crafted-gold text-crafted-brown hover:bg-crafted-gold/20">
@@ -240,8 +251,7 @@ const CommunityPage = () => {
             Recent Discussions
           </h2>
           <div className="space-y-4">
-            {recentDiscussions.map((discussion) => (
-              <div key={discussion.id} className="bg-white/70 p-4 rounded-lg border border-crafted-gold/30 hover:border-crafted-gold transition-all hover:shadow-md">
+            {recentDiscussions.map(discussion => <div key={discussion.id} className="bg-white/70 p-4 rounded-lg border border-crafted-gold/30 hover:border-crafted-gold transition-all hover:shadow-md">
                 <div className="flex justify-between items-start">
                   <h3 className="font-serif text-xl font-semibold text-crafted-brown mb-2">{discussion.title}</h3>
                   <Badge className="bg-crafted-gold/20 text-crafted-brown border-crafted-gold">
@@ -251,8 +261,7 @@ const CommunityPage = () => {
                 <p className="text-crafted-lightBrown text-sm">
                   Started by {discussion.author} • Last active {discussion.lastActive}
                 </p>
-              </div>
-            ))}
+              </div>)}
           </div>
           <div className="mt-8 text-center">
             <Button variant="outline" className="border-crafted-gold text-crafted-brown hover:bg-crafted-gold/20">
@@ -267,8 +276,7 @@ const CommunityPage = () => {
             Meet Our Community
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
-            {communityMembers.map((member) => (
-              <Popover key={member.id}>
+            {communityMembers.map(member => <Popover key={member.id}>
                 <PopoverTrigger asChild>
                   <div className="bg-white/70 p-4 rounded-lg border border-crafted-gold/30 hover:border-crafted-gold transition-all hover:shadow-md text-center cursor-pointer">
                     <Avatar className="h-20 w-20 mx-auto mb-3">
@@ -299,8 +307,7 @@ const CommunityPage = () => {
                     View Profile
                   </Button>
                 </PopoverContent>
-              </Popover>
-            ))}
+              </Popover>)}
           </div>
           <div className="text-center">
             <p className="text-lg text-crafted-lightBrown mb-6">
@@ -321,23 +328,16 @@ const CommunityPage = () => {
             <p className="text-lg text-crafted-lightBrown mb-6">
               Sign up now to connect with like-minded individuals on the journey of intentional living.
             </p>
-            {user ? (
-              <div className="bg-white bg-opacity-70 p-6 rounded-lg border border-crafted-gold/30 mb-6">
+            {user ? <div className="bg-white bg-opacity-70 p-6 rounded-lg border border-crafted-gold/30 mb-6">
                 <p className="text-crafted-brown text-lg mb-4">
                   You're signed in as <span className="font-semibold">{user.email}</span>
                 </p>
                 <Button className="bg-crafted-gold hover:bg-crafted-gold/90 text-crafted-brown text-lg px-6 py-6 w-full sm:w-auto">
                   Complete Your Community Profile
                 </Button>
-              </div>
-            ) : (
-              <div className="bg-white bg-opacity-70 p-6 rounded-lg border border-crafted-gold/30 mb-6">
+              </div> : <div className="bg-white bg-opacity-70 p-6 rounded-lg border border-crafted-gold/30 mb-6">
                 <div className="flex flex-col sm:flex-row gap-4 mb-4">
-                  <Input
-                    type="email"
-                    placeholder="Your email address"
-                    className="border-crafted-lightBrown"
-                  />
+                  <Input type="email" placeholder="Your email address" className="border-crafted-lightBrown" />
                   <Button className="bg-crafted-gold hover:bg-crafted-gold/90 text-crafted-brown">
                     Join Community
                   </Button>
@@ -345,8 +345,7 @@ const CommunityPage = () => {
                 <p className="text-crafted-lightBrown text-sm">
                   Or <Link to="/auth" className="text-crafted-brown underline">sign in</Link> to your existing account
                 </p>
-              </div>
-            )}
+              </div>}
           </div>
         </section>
 
@@ -391,8 +390,6 @@ const CommunityPage = () => {
           </div>
         </div>
       </footer>
-    </div>
-  );
+    </div>;
 };
-
 export default CommunityPage;
