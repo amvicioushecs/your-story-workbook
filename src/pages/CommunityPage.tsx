@@ -8,6 +8,7 @@ import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { useAuth } from '../contexts/AuthContext';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Input } from '@/components/ui/input';
+
 const CommunityPage = () => {
   const {
     user
@@ -120,7 +121,7 @@ const CommunityPage = () => {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/4 flex justify-center">
               <Avatar className="h-108 w-48 rounded-lg border-4 border-crafted-gold">
-                <AvatarImage src="/lovable-uploads/431471b9-3570-4339-9808-57787f74d22d.png" alt="Hector Verdugo" className="object-fill" />
+                <AvatarImage src="/lovable-uploads/431471b9-3570-4339-9808-57787f74d22d.png" alt="Hector Verdugo" className="object-contain" />
                 <AvatarFallback className="bg-crafted-gold text-crafted-brown text-4xl font-bold">
                   HV
                 </AvatarFallback>
