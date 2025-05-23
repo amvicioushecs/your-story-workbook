@@ -119,7 +119,7 @@ const CommunityPage = () => {
         <section className="mb-16 bg-white/70 p-8 rounded-lg border border-crafted-gold/30 shadow-md">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/4 flex justify-center">
-              <Avatar className="h-88 w-48 rounded-lg border-4 border-crafted-gold">
+              <Avatar className="h-108 w-48 rounded-lg border-4 border-crafted-gold">
                 <AvatarImage src="/lovable-uploads/431471b9-3570-4339-9808-57787f74d22d.png" alt="Hector Verdugo" className="object-fill" />
                 <AvatarFallback className="bg-crafted-gold text-crafted-brown text-4xl font-bold">
                   HV
