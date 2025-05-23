@@ -1,9 +1,11 @@
-import React, { useRef } from 'react';
+
+import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
+import { toast } from "@/components/ui/use-toast";
 
 const HomePage = () => {
   const {
@@ -12,14 +14,67 @@ const HomePage = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
 
+  useEffect(() => {
+    // Initialize audio element
+    if (audioRef.current) {
+      audioRef.current.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        toast({
+          title: "Audio Error",
+          description: "There was a problem playing the audio. Please try again.",
+          variant: "destructive"
+        });
+        setIsPlaying(false);
+      });
+
+      // Clean up event listeners
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.removeEventListener('error', () => {});
+        }
+      };
+    }
+  }, []);
+
   const toggleAudio = () => {
     if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
+      try {
+        if (isPlaying) {
+          audioRef.current.pause();
+        } else {
+          // Reset the audio to start if it has ended
+          if (audioRef.current.ended) {
+            audioRef.current.currentTime = 0;
+          }
+          
+          const playPromise = audioRef.current.play();
+          
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                setIsPlaying(true);
+              })
+              .catch(error => {
+                console.error("Audio playback failed:", error);
+                setIsPlaying(false);
+                toast({
+                  title: "Playback Failed",
+                  description: "Could not play audio. Please try again or check your audio settings.",
+                  variant: "destructive"
+                });
+              });
+          }
+          return;
+        }
+        setIsPlaying(!isPlaying);
+      } catch (error) {
+        console.error("Audio toggle error:", error);
+        toast({
+          title: "Audio Error",
+          description: "There was a problem controlling the audio. Please try again.",
+          variant: "destructive"
+        });
       }
-      setIsPlaying(!isPlaying);
     }
   };
 
@@ -88,7 +143,7 @@ const HomePage = () => {
             </div>
             <audio 
               ref={audioRef} 
-              src="https://notebooklm.google.com/notebook/bfd54611-a8e3-4b9c-bc73-c6c58d3e3dd6/audio" 
+              src="/audio/hector-crafted-by-choice.mp3" 
               onEnded={() => setIsPlaying(false)} 
               className="hidden"
             />
