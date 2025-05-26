@@ -1,3 +1,4 @@
+
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause } from 'lucide-react';
@@ -20,7 +21,7 @@ const HomePage = () => {
         console.error('Audio error:', e);
         toast({
           title: "Audio Error",
-          description: "Audio file not found. Please check if the audio file exists in the public/audio folder.",
+          description: "Audio file not found in any supported format. Please check if audio files exist in the public/audio folder.",
           variant: "destructive"
         });
         setIsPlaying(false);
@@ -68,7 +69,7 @@ const HomePage = () => {
                 setIsPlaying(false);
                 toast({
                   title: "Audio File Missing",
-                  description: "Please add the audio file 'hector-message.mp3' to the public/audio/ folder.",
+                  description: "Please add audio files (mp3, wav, or ogg) to the public/audio/ folder.",
                   variant: "destructive"
                 });
               });
@@ -152,11 +153,16 @@ const HomePage = () => {
             </div>
             <audio 
               ref={audioRef} 
-              src="/audio/hector-message.mp3" 
               onEnded={() => setIsPlaying(false)} 
               className="hidden"
               preload="metadata"
-            />
+            >
+              <source src="/audio/hector-message.mp3" type="audio/mpeg" />
+              <source src="/audio/hector-message.wav" type="audio/wav" />
+              <source src="/audio/hector-message.ogg" type="audio/ogg" />
+              <source src="/audio/hector-message.m4a" type="audio/mp4" />
+              Your browser does not support the audio element.
+            </audio>
           </div>
         </section>
 
