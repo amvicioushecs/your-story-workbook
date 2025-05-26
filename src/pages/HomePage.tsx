@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause } from 'lucide-react';
@@ -21,16 +20,26 @@ const HomePage = () => {
         console.error('Audio error:', e);
         toast({
           title: "Audio Error",
-          description: "There was a problem playing the audio. Please try again.",
+          description: "Audio file not found. Please check if the audio file exists in the public/audio folder.",
           variant: "destructive"
         });
         setIsPlaying(false);
+      });
+
+      audioRef.current.addEventListener('loadstart', () => {
+        console.log('Audio loading started');
+      });
+
+      audioRef.current.addEventListener('canplay', () => {
+        console.log('Audio can play');
       });
 
       // Clean up event listeners
       return () => {
         if (audioRef.current) {
           audioRef.current.removeEventListener('error', () => {});
+          audioRef.current.removeEventListener('loadstart', () => {});
+          audioRef.current.removeEventListener('canplay', () => {});
         }
       };
     }
@@ -58,8 +67,8 @@ const HomePage = () => {
                 console.error("Audio playback failed:", error);
                 setIsPlaying(false);
                 toast({
-                  title: "Playback Failed",
-                  description: "Could not play audio. Please try again or check your audio settings.",
+                  title: "Audio File Missing",
+                  description: "Please add the audio file 'hector-message.mp3' to the public/audio/ folder.",
                   variant: "destructive"
                 });
               });
@@ -143,9 +152,10 @@ const HomePage = () => {
             </div>
             <audio 
               ref={audioRef} 
-              src="/audio/hector-crafted-by-choice.mp3" 
+              src="/audio/hector-message.mp3" 
               onEnded={() => setIsPlaying(false)} 
               className="hidden"
+              preload="metadata"
             />
           </div>
         </section>
