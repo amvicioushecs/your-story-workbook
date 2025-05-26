@@ -147,7 +147,7 @@ const HomePage = () => {
               </Button>
               <div className="flex-1">
                 <p className="text-lg text-crafted-brown font-medium">Hector Verdugo on Crafted By Choice</p>
-                <p className="text-crafted-lightBrown">Listen to Hector explain the journey behind the book</p>
+                <p className="text-crafted-lightBrown">Podcast Discussion on Crafted By Choice</p>
               </div>
             </div>
             <audio 
