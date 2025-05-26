@@ -1,4 +1,3 @@
-
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause } from 'lucide-react';
@@ -21,7 +20,7 @@ const HomePage = () => {
         console.error('Audio error:', e);
         toast({
           title: "Audio Error",
-          description: "Audio file not found in any supported format. Please check if audio files exist in the public/audio folder.",
+          description: "Audio file could not be loaded. Please check if the audio file exists.",
           variant: "destructive"
         });
         setIsPlaying(false);
@@ -68,8 +67,8 @@ const HomePage = () => {
                 console.error("Audio playback failed:", error);
                 setIsPlaying(false);
                 toast({
-                  title: "Audio File Missing",
-                  description: "Please add audio files (mp3, wav, or ogg) to the public/audio/ folder.",
+                  title: "Audio Playback Failed",
+                  description: "There was a problem playing the audio file.",
                   variant: "destructive"
                 });
               });
@@ -157,10 +156,7 @@ const HomePage = () => {
               className="hidden"
               preload="metadata"
             >
-              <source src="/audio/hector-message.mp3" type="audio/mpeg" />
-              <source src="/audio/hector-message.wav" type="audio/wav" />
-              <source src="/audio/hector-message.ogg" type="audio/ogg" />
-              <source src="/audio/hector-message.m4a" type="audio/mp4" />
+              <source src="/VERT_The Crafted Life.mp3" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
           </div>
