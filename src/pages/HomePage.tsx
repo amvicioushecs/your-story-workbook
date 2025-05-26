@@ -146,7 +146,6 @@ const HomePage = () => {
                 {isPlaying ? <Pause className="h-6 w-6 text-crafted-brown" /> : <Play className="h-6 w-6 text-crafted-brown ml-1" />}
               </Button>
               <div className="flex-1">
-                <p className="text-lg text-crafted-brown font-medium">Hector Verdugo on Crafted By Choice</p>
                 <p className="text-crafted-lightBrown">Podcast Discussion on Crafted By Choice</p>
               </div>
             </div>
