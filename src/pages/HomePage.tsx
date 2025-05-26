@@ -5,18 +5,16 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from "@/components/ui/use-toast";
-
 const HomePage = () => {
   const {
     user
   } = useAuth();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
-
   useEffect(() => {
     // Initialize audio element
     if (audioRef.current) {
-      audioRef.current.addEventListener('error', (e) => {
+      audioRef.current.addEventListener('error', e => {
         console.error('Audio error:', e);
         toast({
           title: "Audio Error",
@@ -25,11 +23,9 @@ const HomePage = () => {
         });
         setIsPlaying(false);
       });
-
       audioRef.current.addEventListener('loadstart', () => {
         console.log('Audio loading started');
       });
-
       audioRef.current.addEventListener('canplay', () => {
         console.log('Audio can play');
       });
@@ -44,7 +40,6 @@ const HomePage = () => {
       };
     }
   }, []);
-
   const toggleAudio = () => {
     if (audioRef.current) {
       try {
@@ -55,23 +50,19 @@ const HomePage = () => {
           if (audioRef.current.ended) {
             audioRef.current.currentTime = 0;
           }
-          
           const playPromise = audioRef.current.play();
-          
           if (playPromise !== undefined) {
-            playPromise
-              .then(() => {
-                setIsPlaying(true);
-              })
-              .catch(error => {
-                console.error("Audio playback failed:", error);
-                setIsPlaying(false);
-                toast({
-                  title: "Audio Playback Failed",
-                  description: "There was a problem playing the audio file.",
-                  variant: "destructive"
-                });
+            playPromise.then(() => {
+              setIsPlaying(true);
+            }).catch(error => {
+              console.error("Audio playback failed:", error);
+              setIsPlaying(false);
+              toast({
+                title: "Audio Playback Failed",
+                description: "There was a problem playing the audio file.",
+                variant: "destructive"
               });
+            });
           }
           return;
         }
@@ -86,7 +77,6 @@ const HomePage = () => {
       }
     }
   };
-
   return <div className="min-h-screen">
       {/* Hero section */}
       <div className="wood-texture text-center py-16 px-4 mb-12">
@@ -134,27 +124,17 @@ const HomePage = () => {
         <section className="mb-8">
           <div className="bg-crafted-brown/10 rounded-lg p-6 border border-crafted-gold/30">
             <h3 className="text-2xl font-serif font-semibold text-crafted-brown mb-4 flex items-center">
-              <span>Message from the Author</span>
+              <span>Message from The Deep Dive Podcast</span>
             </h3>
             <div className="flex items-center gap-4">
-              <Button 
-                onClick={toggleAudio} 
-                variant="outline" 
-                size="icon" 
-                className="h-12 w-12 rounded-full border-2 border-crafted-gold bg-crafted-gold/10 hover:bg-crafted-gold/20"
-              >
+              <Button onClick={toggleAudio} variant="outline" size="icon" className="h-12 w-12 rounded-full border-2 border-crafted-gold bg-crafted-gold/10 hover:bg-crafted-gold/20">
                 {isPlaying ? <Pause className="h-6 w-6 text-crafted-brown" /> : <Play className="h-6 w-6 text-crafted-brown ml-1" />}
               </Button>
               <div className="flex-1">
-                <p className="text-crafted-lightBrown">Podcast Discussion on Crafted By Choice</p>
+                <p className="text-crafted-lightBrown">Book Overview and Insights</p>
               </div>
             </div>
-            <audio 
-              ref={audioRef} 
-              onEnded={() => setIsPlaying(false)} 
-              className="hidden"
-              preload="metadata"
-            >
+            <audio ref={audioRef} onEnded={() => setIsPlaying(false)} className="hidden" preload="metadata">
               <source src="/VERT_The Crafted Life.mp3" type="audio/mpeg" />
               Your browser does not support the audio element.
             </audio>
@@ -166,11 +146,7 @@ const HomePage = () => {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2 flex justify-center">
               <div className="relative transform hover:scale-105 transition-all duration-300">
-                <img 
-                  src="/lovable-uploads/a7789139-634a-468b-9f13-2ea2a4eec425.png" 
-                  alt="Crafted By Choice Book" 
-                  className="w-full max-w-md shadow-2xl rounded-md"
-                />
+                <img src="/lovable-uploads/a7789139-634a-468b-9f13-2ea2a4eec425.png" alt="Crafted By Choice Book" className="w-full max-w-md shadow-2xl rounded-md" />
                 <div className="absolute -bottom-4 -right-4 bg-crafted-gold text-crafted-brown px-4 py-2 rounded-full font-bold shadow-lg">
                   Now Available!
                 </div>
