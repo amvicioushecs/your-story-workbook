@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ChapterNavigation from '../components/ChapterNavigation';
@@ -60,7 +61,7 @@ const Index = () => {
     input.click();
   };
   
-  return <div className="min-h-screen pb-20">
+  return <div className="min-h-screen">
       {/* Hero Header */}
       <div className="wood-texture text-center py-12 px-4 mb-8">
         <div className="max-w-4xl mx-auto">
@@ -79,7 +80,7 @@ const Index = () => {
         </div>
       </div>
 
-      <div className="container px-4 md:px-6">
+      <div className="container px-4 md:px-6 pb-8">
         {/* Auth controls and action buttons */}
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center justify-center space-x-2">
@@ -141,11 +142,6 @@ const Index = () => {
             {isLoaded && <WorkbookPage chapter={currentChapter} />}
           </div>
         </div>
-      </div>
-
-      {/* Bottom navigation for mobile */}
-      <div className="lg:hidden fixed bottom-0 left-0 right-0 bg-white bg-opacity-95 border-t border-crafted-gold p-4">
-        <ChapterNavigation activeChapter={activeChapter} setActiveChapter={setActiveChapter} />
       </div>
 
       {/* Save notification */}
