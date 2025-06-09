@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { chapters } from '../data/chapters';
-import { cn } from '@/lib/utils';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 interface ChapterNavigationProps {
   activeChapter: number;
@@ -12,25 +12,32 @@ const ChapterNavigation: React.FC<ChapterNavigationProps> = ({
   activeChapter,
   setActiveChapter
 }) => {
+  const currentChapter = chapters.find(chapter => chapter.id === activeChapter);
+
   return (
     <div className="mb-8">
       <h2 className="text-xl font-serif text-crafted-brown mb-4">Chapters</h2>
-      <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
-        {chapters.map((chapter) => (
-          <button
-            key={chapter.id}
-            onClick={() => setActiveChapter(chapter.id)}
-            className={cn(
-              "flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 font-medium",
-              activeChapter === chapter.id 
-                ? "bg-crafted-brown text-crafted-cream shadow-md" 
-                : "bg-crafted-cream text-crafted-brown border border-crafted-brown hover:bg-crafted-gold hover:border-crafted-gold"
-            )}
-          >
-            {chapter.id}
-          </button>
-        ))}
-      </div>
+      <Select 
+        value={activeChapter.toString()} 
+        onValueChange={(value) => setActiveChapter(parseInt(value))}
+      >
+        <SelectTrigger className="w-full bg-crafted-cream border-crafted-brown text-crafted-brown hover:bg-crafted-gold/20">
+          <SelectValue>
+            {currentChapter ? `Chapter ${currentChapter.id}: ${currentChapter.title}` : 'Select a chapter'}
+          </SelectValue>
+        </SelectTrigger>
+        <SelectContent className="bg-white border-crafted-gold max-h-96 overflow-y-auto z-50">
+          {chapters.map((chapter) => (
+            <SelectItem 
+              key={chapter.id} 
+              value={chapter.id.toString()}
+              className="text-crafted-brown hover:bg-crafted-gold/20 focus:bg-crafted-gold/20 cursor-pointer"
+            >
+              Chapter {chapter.id}: {chapter.title}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 };
