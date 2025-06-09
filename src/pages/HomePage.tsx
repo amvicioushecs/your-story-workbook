@@ -1,16 +1,18 @@
 import React, { useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause } from 'lucide-react';
+import { BookOpen, BookText, ChevronRight, PencilLine, User, ShoppingCart, Users, Play, Pause, ExternalLink } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from "@/components/ui/use-toast";
+
 const HomePage = () => {
   const {
     user
   } = useAuth();
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = React.useState(false);
+
   useEffect(() => {
     // Initialize audio element
     if (audioRef.current) {
@@ -40,6 +42,7 @@ const HomePage = () => {
       };
     }
   }, []);
+
   const toggleAudio = () => {
     if (audioRef.current) {
       try {
@@ -77,6 +80,18 @@ const HomePage = () => {
       }
     }
   };
+
+  const handlePurchaseBook = () => {
+    // This will open the purchase link in a new tab
+    // You can replace this URL with your actual book purchase link
+    window.open('https://amazon.com/crafted-by-choice', '_blank');
+    
+    toast({
+      title: "Redirecting to Purchase",
+      description: "Opening book purchase page in a new tab.",
+    });
+  };
+
   return <div className="min-h-screen">
       {/* Hero section */}
       <div className="wood-texture text-center py-16 px-4 mb-12">
@@ -146,7 +161,11 @@ const HomePage = () => {
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="md:w-1/2 flex justify-center">
               <div className="relative transform hover:scale-105 transition-all duration-300">
-                <img src="/lovable-uploads/a7789139-634a-468b-9f13-2ea2a4eec425.png" alt="Crafted By Choice Book" className="w-full max-w-md shadow-2xl rounded-md" />
+                <img 
+                  src="/lovable-uploads/a7789139-634a-468b-9f13-2ea2a4eec425.png" 
+                  alt="Crafted By Choice Book" 
+                  className="w-full max-w-md shadow-2xl rounded-md" 
+                />
                 <div className="absolute -bottom-4 -right-4 bg-crafted-gold text-crafted-brown px-4 py-2 rounded-full font-bold shadow-lg">
                   Now Available!
                 </div>
@@ -168,13 +187,50 @@ const HomePage = () => {
                 Take your journey further with the complete physical book. Featuring additional exercises, 
                 insights, and a beautifully crafted hardcover design that makes a perfect gift.
               </p>
-              <a href="#" className="inline-block">
-                <Button className="bg-crafted-brown hover:bg-crafted-brown/90 text-crafted-gold text-lg px-6 py-6">
-                  Purchase Book <ShoppingCart className="ml-2" />
-                </Button>
-              </a>
-              <p className="text-sm text-crafted-lightBrown mt-3">
+              
+              {/* Purchase options */}
+              <div className="space-y-4 mb-6">
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <Button 
+                    onClick={handlePurchaseBook}
+                    className="bg-crafted-brown hover:bg-crafted-brown/90 text-crafted-gold text-lg px-6 py-6 flex-1"
+                  >
+                    <ShoppingCart className="mr-2" />
+                    Purchase on Amazon
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                  
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      window.open('https://bookshop.org/search?keywords=crafted+by+choice', '_blank');
+                      toast({
+                        title: "Redirecting to Bookshop",
+                        description: "Supporting independent bookstores.",
+                      });
+                    }}
+                    className="border-crafted-gold text-crafted-brown hover:bg-crafted-gold/10 text-lg px-6 py-6 flex-1"
+                  >
+                    Support Local Bookstores
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </Button>
+                </div>
+                
+                <div className="bg-crafted-brown/10 p-4 rounded-lg">
+                  <h3 className="font-serif text-lg font-semibold text-crafted-brown mb-2">Book Details</h3>
+                  <ul className="text-crafted-lightBrown space-y-1">
+                    <li>• Hardcover Edition - 280 pages</li>
+                    <li>• 15 Interactive Chapters</li>
+                    <li>• Bonus Reflection Exercises</li>
+                    <li>• Premium Paper Quality</li>
+                  </ul>
+                </div>
+              </div>
+              
+              <p className="text-sm text-crafted-lightBrown">
                 *Shipping available worldwide. Orders typically arrive within 5-7 business days.
+                <br />
+                **eBook version also available on major platforms.
               </p>
             </div>
           </div>
@@ -343,4 +399,5 @@ const HomePage = () => {
       </footer>
     </div>;
 };
+
 export default HomePage;
