@@ -274,9 +274,9 @@ const HomePage = () => {
         </section>
 
         {/* CTA section */}
-        <section className="paper-texture p-8 rounded-lg border border-crafted-gold/30 text-center mb-16">
-          <h3 className="text-2xl font-serif font-semibold text-crafted-brown mb-4">Ready to begin your journey?</h3>
-          <p className="text-lg text-crafted-lightBrown mb-6">
+        <section className="paper-texture p-8 rounded-lg border border-crafted-gold/30 text-center mb-16 bg-yellow-900">
+          <h3 className="text-2xl font-serif font-semibold mb-4 text-amber-500">Ready to begin your journey?</h3>
+          <p className="text-lg mb-6 text-orange-300">
             Start with Chapter 1: Introduction to Choice, or pick up where you left off.
           </p>
           <Link to="/workbook">
