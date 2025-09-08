@@ -210,7 +210,7 @@ const AudioSection = () => {
           className="hidden" 
           preload="metadata"
         >
-          <source src="/VERT_The Crafted Life.mp3" type="audio/mpeg" />
+          <source src="/VERT_The%20Crafted%20Life.mp3" type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
