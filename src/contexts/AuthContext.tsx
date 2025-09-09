@@ -1,16 +1,12 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { createClient, SupabaseClient, User } from '@supabase/supabase-js';
+import { SupabaseClient, User, Session } from '@supabase/supabase-js';
 import { useToast } from '@/components/ui/use-toast';
-
-// Initialize Supabase client with the provided credentials
-const SUPABASE_URL = 'https://ydlyhdbknvxijydifavg.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkbHloZGJrbnZ4aWp5ZGlmYXZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc4NjA1NDgsImV4cCI6MjA2MzQzNjU0OH0.ZIvfvwkX9EjG7iR9CRmtRVtLQ8NY6-ahEgkaDysV0YU';
-
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { supabase } from '@/integrations/supabase/client';
 
 type AuthContextType = {
   user: User | null;
+  session: Session | null;
   loading: boolean;
   signUp: (email: string, password: string) => Promise<void>;
   signIn: (email: string, password: string) => Promise<void>;
@@ -22,42 +18,43 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
-  useEffect(() => {
-    // Check active sessions and set the user
-    const checkUser = async () => {
-      try {
-        const { data: { session } } = await supabase.auth.getSession();
-        setUser(session?.user || null);
-      } catch (error) {
-        console.error('Error checking auth session:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    
-    checkUser();
+useEffect(() => {
+    // Listen first, then fetch existing session (prevents missing events)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
 
-    // Listen for auth changes
-    const { data: { subscription }} = supabase.auth.onAuthStateChange(
-      async (event, session) => {
-        setUser(session?.user || null);
+    supabase.auth.getSession()
+      .then(({ data: { session } }) => {
+        setSession(session);
+        setUser(session?.user ?? null);
         setLoading(false);
-      }
-    );
+      })
+      .catch((error) => {
+        console.error('Error checking auth session:', error);
+        setLoading(false);
+      });
 
     return () => {
       subscription.unsubscribe();
     };
   }, []);
 
-  const signUp = async (email: string, password: string) => {
+const signUp = async (email: string, password: string) => {
     try {
+      const redirectUrl = `${window.location.origin}/`;
       const { error } = await supabase.auth.signUp({
         email,
         password,
+        options: {
+          emailRedirectTo: redirectUrl,
+        },
       });
       
       if (error) throw error;
@@ -119,8 +116,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  return (
-    <AuthContext.Provider value={{ user, loading, signUp, signIn, signOut, supabase }}>
+return (
+    <AuthContext.Provider value={{ user, session, loading, signUp, signIn, signOut, supabase }}>
       {children}
     </AuthContext.Provider>
   );
