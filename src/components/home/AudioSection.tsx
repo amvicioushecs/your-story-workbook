@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from 'react';
 import { Play, Pause } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from "@/hooks/use-toast";
+import craftedAudio from '@/assets/audio/vert-the-crafted-life.mp3';
 
 const AudioSection = () => {
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -210,7 +211,7 @@ const AudioSection = () => {
           className="hidden" 
           preload="metadata"
         >
-          <source src="/VERT_The%20Crafted%20Life.mp3" type="audio/mpeg" />
+          <source src={craftedAudio} type="audio/mpeg" />
           Your browser does not support the audio element.
         </audio>
       </div>
